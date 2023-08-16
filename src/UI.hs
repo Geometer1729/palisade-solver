@@ -4,8 +4,14 @@ import qualified Data.Map.Lazy as M
 import Builder (Var (..))
 import qualified Data.Text as T
 
-parse :: Text -> [(Int,Int,Int)]
-parse w = do
+parse :: Text -> Maybe (Int,Int,Int,[(Int,Int,Int)])
+parse t = do
+  [x,y,r] <- mapM (readMaybe . toString) $ take 3 (lines t)
+  let b = unlines (drop 3 $ lines t)
+  pure (x,y,r,parseBody b)
+
+parseBody :: Text -> [(Int,Int,Int)]
+parseBody w = do
   (y,l) <- zip [0..] (lines w)
   (x,c) <- zip [0..] (toString l)
   guard $ '0' <= c && c <= '9'
