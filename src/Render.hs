@@ -11,7 +11,7 @@ render x y rs sol = let
   [ T.concat [
   show $ fromJust
     $ find
-      (\r -> M.lookup (Region i j r) sol == Just True)
+      (\r -> M.lookup (Region (i,j) r) sol == Just True)
       [0..rm-1]
   | i <- [0..x-1] ]
   | j <- [0..y-1] ]
