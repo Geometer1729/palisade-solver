@@ -1,16 +1,17 @@
 {-# OPTIONS_GHC -Wno-deprecations #-}
+
 module Main where
 
-import Main.Utf8 qualified as Utf8
 import Builder (run)
-import UI (render,parse)
-import qualified Data.Map.Lazy as M
+import Data.Map.Lazy qualified as M
+import Main.Utf8 qualified as Utf8
+import UI (parse, render)
 
 main :: IO ()
 main = Utf8.withUtf8 $ do
   [name] <- getArgs
   readFileText name <&> parse >>= \case
-    Just (x,y,r,cs) ->
+    Just (x, y, r, cs) ->
       case run x y r cs of
         Just t -> do
           -- handy for debug
@@ -18,5 +19,3 @@ main = Utf8.withUtf8 $ do
           putTextLn $ render cs x y t
         Nothing -> putTextLn "no solution"
     Nothing -> putTextLn "failed to parse"
-
-
