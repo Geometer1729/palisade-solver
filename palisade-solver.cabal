@@ -97,4 +97,4 @@ executable palisade-solver
   main-is: Main.hs
   other-modules:
     Builder
-    Render
+    UI

@@ -133,7 +133,6 @@ run :: Int -> Int -> Int -> [(Int,Int,Int)] -> Maybe (Map Var Bool)
 run x y rs es = solve $ getConj $ execWriter $ (`runReaderT` (x,y,rs)) $ do
   makeRegions
   forM_ es $ \(i,j,c) -> setCount i j c
-  assert $ All [ Var $ Region (4,i) 4 | i <- [0..4] ]
 
 test :: Maybe (Map Var Bool)
 test =
